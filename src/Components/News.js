@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
 import Loader from "./Loader.js";
+import PropTypes from 'prop-types'
 
-export default function News() {
+export default function News(props) {
   const [news, setNews] = useState([]);
   const [load, setLoad] = useState(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
-  const pageSize=15
+  const [pageSize, setPageSize] = useState(15);
 
   async function fetchItems(page) {
     let info = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=us&pageSize=${pageSize}&page=${page}&apiKey=24be594173364e3b9be6c7bf2b964df7`
+      `https://newsapi.org/v2/top-headlines?country=${props.countryCode}&category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=24be594173364e3b9be6c7bf2b964df7`
     );
 
     let data = await info.json();
+    console.log(data);
     const articles = data.articles
-    let total = data.articles.length;
+    let total = data.totalResults;
     console.log(total);
     setTotal(total);
     setNews(articles);
     setLoad(false);
+    setPageSize(15);
     
   }
   
@@ -28,7 +31,7 @@ export default function News() {
     
     fetchItems(page);
     
-  }, [page]);
+  }, []);
 
   const handleNext = ()=>{
     const nextPage = page+1
@@ -46,9 +49,9 @@ export default function News() {
 
       <div className="container d-flex justify-content-around">
         <div className="row my-2 ">
-          {news&&news.map((newItem) => {
+          {news&&news.map((newItem,index) => {
             return (
-             <div className="col-md-4 my-2">
+             <div key={index} className="col-md-4 my-2">
                 <NewsItem
                   title={newItem.title}
                   descrip={newItem.description}
@@ -60,14 +63,24 @@ export default function News() {
           })}
         </div>
       </div> 
-    </div>: <div class="d-flex justify-content-center" style={{height:"100vh"}}><div class="d-flex align-items-center"><Loader /></div></div>
+    </div>: <div className="d-flex justify-content-center" style={{height:"100vh"}}><div className="d-flex align-items-center"><Loader /></div></div>
         }
 
-        <div class="d-flex justify-content-around mb-3">
-        <button type="button" class="btn btn-dark" disabled={page<1} onClick={handlePrevious}>Previous</button>
-        <button type="button" class="btn btn-dark" disabled={total<pageSize}  onClick={handleNext}>Next</button>
+        <div className="d-flex justify-content-around mb-3">
+        <button type="button" className="btn btn-dark" disabled={page<1} onClick={handlePrevious}>Previous</button>
+        <button type="button" className="btn btn-dark" disabled={page>=Math.ceil(total/pageSize)}  onClick={handleNext}>Next</button>
         </div>
     </div>
 
   );
+}
+
+News.propTypes={
+    category: PropTypes.string.isRequired,
+    countryCode: PropTypes.string.isRequired
+};
+
+News.defaultProps = {
+    category: "general",
+    countryCode: "in"   
 }
