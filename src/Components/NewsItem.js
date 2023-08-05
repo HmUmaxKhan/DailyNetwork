@@ -5,12 +5,12 @@ export default function NewsItem(props) {
     <div>
       <div className="container">
         <div className="card" style={{ width: "18rem" }}>
-          <img src="..." className="card-img-top" alt="..." />
+          <img src={props.imgUrl} className="card-img-top w-100 h-75" alt="..." />
           <div className="card-body">
-            <h5 className="card-title">{props.title}</h5>
-            <p className="card-text">{props.descrip}.</p>
-            <a href="/" className="btn btn-primary">
-              Go somewhere
+            <h5 className="card-title"><strong>{props.title.length>30?props.title.slice(0,31)+"...":props.title}</strong></h5>
+            <p className="card-text">{props.descrip&&props.descrip.length>50?props.descrip.slice(0,81)+"...":props.descrip}.</p>
+            <a href={props.source} className="btn btn-primary" target="_.blank">
+              Read More
             </a>
           </div>
         </div>
