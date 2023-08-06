@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
 import Loader from "./Loader.js";
 import PropTypes from 'prop-types'
+//  import '../Components/var';
 
 export default function News(props) {
   const [news, setNews] = useState([]);
   const [load, setLoad] = useState(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
-  const [pageSize, setPageSize] = useState(9);
+  const [pageSize] = useState(30);
+
 
   async function fetchItems() {
     let info = await fetch(
-     `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=${process.env.REACT_APP_API_VALUE}`
+     `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=${props.apikey}`
       );
 
     let data = await info.json();
@@ -23,7 +25,6 @@ export default function News(props) {
     setTotal(total);
     setNews(articles);
     setLoad(false);
-    setPageSize(15);
     
   }
   
@@ -48,6 +49,7 @@ useEffect(() => {
 
       <div className="container d-flex justify-content-around">
         <div className="row my-2 ">
+
           {news&&news.map((newItem,index) => {
             return (
              <div key={index} className="col-md-4 my-2">
@@ -60,6 +62,7 @@ useEffect(() => {
               </div>
             );
           })}
+
         </div>
       </div> 
     </div>: <div className="d-flex justify-content-center" style={{height:"100vh"}}><div className="d-flex align-items-center"><Loader /></div></div>
