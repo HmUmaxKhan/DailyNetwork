@@ -10,7 +10,7 @@ export default function News(props) {
   const [total, setTotal] = useState(1);
   const [pageSize, setPageSize] = useState(15);
 
-  async function fetchItems(page) {
+  async function fetchItems() {
     let info = await fetch(
       `https://newsapi.org/v2/top-headlines?country=${props.countryCode}&category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=24be594173364e3b9be6c7bf2b964df7`
     );
@@ -27,11 +27,10 @@ export default function News(props) {
     
   }
   
-  useEffect(() => {
-    
-    fetchItems(page);
-    
-  }, []);
+useEffect(() => {
+   fetchItems();
+},)
+
 
   const handleNext = ()=>{
     const nextPage = page+1
@@ -82,5 +81,5 @@ News.propTypes={
 
 News.defaultProps = {
     category: "general",
-    countryCode: "in"   
+    countryCode: "us"   
 }

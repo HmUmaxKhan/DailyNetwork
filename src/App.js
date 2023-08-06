@@ -8,20 +8,6 @@ import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
 
 function App() {
 
-  //  let [count,setCount]= useState(["us"]);
-
-  //  useEffect(() => {
-  //   console.log("Updated count:", count);
-  // }, [count]);
-
-  // const  handleCountry = (event)=>{
-  //    const arr = [...count,event];
-  //    const updatedArr = arr.slice(1);
-  //    setCount(updatedArr);
-  //   //  console.log(updatedArr);
-  //    console.log(count);
-  // }
-
   return (
     <Router>
     <div>
