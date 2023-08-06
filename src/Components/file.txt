@@ -1,8 +1,0 @@
- // <Countries country={props.country}/>
- general
- business
- entertainment
- health
- science
- sports
- technology

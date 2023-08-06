@@ -12,7 +12,7 @@ export default function News(props) {
 
   async function fetchItems() {
     let info = await fetch(
-     `https://newsapi.org/v2/top-headlines?category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=24be594173364e3b9be6c7bf2b964df7`
+     `https://newsapi.org/v2/top-headlines?country=us&category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=24be594173364e3b9be6c7bf2b964df7`
       );
 
     let data = await info.json();
