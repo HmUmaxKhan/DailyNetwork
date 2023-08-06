@@ -8,12 +8,12 @@ export default function News(props) {
   const [load, setLoad] = useState(true);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(1);
-  const [pageSize, setPageSize] = useState(15);
+  const [pageSize, setPageSize] = useState(9);
 
   async function fetchItems() {
     let info = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=${props.countryCode}&category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=24be594173364e3b9be6c7bf2b964df7`
-    );
+     `https://newsapi.org/v2/top-headlines?category=${props.category}&page=${page}&pageSize=${pageSize}&apiKey=24be594173364e3b9be6c7bf2b964df7`
+      );
 
     let data = await info.json();
     console.log(data);
