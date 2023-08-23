@@ -9,6 +9,8 @@ export default function NewsItem(props) {
           <div className="card-body">
             <h5 className="card-title"><strong>{props.title?props.title.length>30?props.title.slice(0,31)+"...":props.title:"Title"}</strong></h5>
             <p className="card-text">{props.descrip?props.descrip.length>50?props.descrip.slice(0,81)+"...":props.descrip:"Description"}.</p>
+            
+    
             <a href={props.source} className="btn btn-primary" target="_.blank">
               Read More
             </a>
